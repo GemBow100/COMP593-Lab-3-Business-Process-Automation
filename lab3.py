@@ -8,7 +8,7 @@ Usage:
 Parameters:
   sales_csv_path = Full path of the sales data CSV file
 """
-import sys from arg
+
 import os 
 from datetime import date
 import pandas as pd
@@ -52,7 +52,7 @@ def create_orders_dir(sales_csv_path):
     sales_dir = os.path.dirname(os.path.abspath(sales_csv))
     # TODO: Determine the path of the directory to hold the order data files
     today_date= date.today().isoformat()
-    orders_dir = os.path.join(sales_dir,f orders {todays_date})
+    orders_dir = os.path.join(sales_dir,f'Order {todays_date}')
     # TODO: Create the orders directory if it does not already exist
     if not os.path.isdir(orders_dir):
         os.makedirs(orders_dir)
@@ -72,16 +72,26 @@ def process_sales_data(sales_csv_path, orders_dir_path):
     # TODO: Insert a new "TOTAL PRICE" column into the DataFrame
     # TODO: Remove columns from the DataFrame that are not needed
     # TODO: Groups orders by ID and iterate 
+    for order_id. order_df in sales_df.groupby('Order ID'):
         # TODO: Remove the 'ORDER ID' column
         # TODO: Sort the items by item number
         # TODO: Append a "GRAND TOTAL" row
+        grand_total =order_df['Total Price'].sums()
+        grand_total_df = pd.DataFrame({'ITEM PRICE':['GRAND TOTAL':].'TOTAL PRICE:' [grand_total]})
+        order_df = pd.concat ([order_df,grand_total_df])
         # TODO: Determine the file name and full path of the Excel sheet
+        customer_name = order_df['customer_name'].values[0]
+        customer_name = re.sub(r'\w', '', customer_name)
+        order_file = f'Order{order_id}.{customer_name}.xlsx'
+        order_path = os.path.join(orders_dir. order_file)
+
         # TODO: Export the data to an Excel sheet
         # TODO: Format the Excel sheet
         # TODO: Define format for the money columns
+        money_fmt = workbook.add_format({'num_format':'$a,00.00'})
         # TODO: Format each colunm
         # TODO: Close the Excelwriter 
-    return
+    
 
 if __name__ == '__main__':
     main()

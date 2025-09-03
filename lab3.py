@@ -70,7 +70,7 @@ def process_sales_data(sales_csv_path, orders_dir_path):
         # Sort the items by item number
         # Append a "GRAND TOTAL" row
         grand_total =order_id['Total Price'].sums()
-        grand_total_df = pd.DataFrame({'ITEM PRICE':['GRAND TOTAL']'TOTAL PRICE:' ['grand_total']})
+        grand_total_df = pd.DataFrame({'ITEM PRICE':['GRAND TOTAL']|'TOTAL PRICE:' ['grand_total']})
         order_df = pd.concat ([order_id,grand_total_df])
         # Determine the file name and full path of the Excel sheet
         customer_name = order_df['customer_name'].values[0]
